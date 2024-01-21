@@ -11,6 +11,13 @@ import likee from "../../../public/likee.png"
 import basket from "../../../public/basket.png"
 import child_images from "../../../public/child_images.png"
 import purplechair from "../../../public/purplechair.png"
+import lyft from "../../../public/lyft.png"
+import robot from "../../../public/robot.png"
+import stripe from "../../../public/stripe.png"
+import leaf from "../../../public/leaf.png"
+import aws from "../../../public/aws.png"
+import hooli from "../../../public/hooli.png"
+import ProductList from "../home/ProductList";
 
 
 
@@ -87,8 +94,31 @@ export default function Shop() {
         </div>
       </div>
 
-      <div className="">
-         
+      <div className="bg-[#FAFAFA] px-[11.5rem]">
+        <p className="text-[#252B42] text-[24px] font-bold mb-5 pt-10 pb-6 border-b-2 border-[#ECECEC]">BESTSELLER PRODUCTS</p>
+        
+        <ProductList showStyles={true} />
+
+        <div className="flex justify-between items-center">
+          <div>
+            <Image src={hooli} alt="" width={80} height={80} className="mb-16" />
+          </div>
+          <div>
+            <Image src={lyft} alt="furiniture 1" width={80} height={80} className="mb-16" />
+          </div>
+          <div>
+            <Image src={leaf} alt="furiniture 1" width={80} height={80} className="mb-16" />
+          </div>
+          <div>
+            <Image src={stripe} alt="furiniture 1" width={80} height={80} className="mb-16" />
+          </div>
+          <div>
+            <Image src={aws} alt="furiniture 1" width={80} height={80} className="mb-16" />
+          </div>
+          <div>
+            <Image src={robot} alt="furiniture 1" width={80} height={80} className="mb-16" />
+          </div>
+        </div>
       </div>
 
       <Footer />
