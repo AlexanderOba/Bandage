@@ -4,12 +4,18 @@ import { TiSocialTwitter } from "react-icons/ti"
 
 
 
+interface FooterProps {
+    changeBackground: boolean;
+}
 
 
-const Footer = () => {
+const Footer: React.FC<FooterProps> = ({ changeBackground }) => {
+    const changeColor = changeBackground ? "#fff" : "bg-[#FAFAFA]";
+
+
     return (
         <div>
-            <div className="px-[11.5rem] bg-[#FAFAFA] pt-5 pb-1">
+            <div className={`px-[11.5rem] ${changeColor} pt-5 pb-1`}>
                 <div className="flex justify-between pt-8 pb-[4rem] border-[#E6E6E6] border-b">
                     <div className="text-[#252B42] text-[21px] font-[700] w-[20%]">
                         Bandage

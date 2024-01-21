@@ -14,12 +14,12 @@ export default function Home() {
     <main>
         <Header isCompact={false} />
         <HeroSection/>
-        <ProductList/>
+        <ProductList showStyles={false}/>
         <ServiceList/>
         <FeaturedPost/>
         <FeedBack/>
         <NewsLetter/>
-        <Footer/>
+        <Footer changeBackground={false}/>
     </main>
   );
 }
