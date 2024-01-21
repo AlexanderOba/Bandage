@@ -55,7 +55,6 @@ const FeaturedPost = () => {
                     </div>
 
                     <div className="w-[31%] mr-3 mb-8" style={{ boxShadow: "0px 2px 4px 0px #0000001A" }}>
-
                         <Image src={kitchen} alt="product image" className=" m-auto" width={350} height={350} />
                         <div className=" mb-3 p-5">
                             <div className="flex text-[#737373] text-[14px] font-[400]">
@@ -82,13 +81,11 @@ const FeaturedPost = () => {
                                 <span>Learn More</span>
                                 <Image src={chevron_right} alt="like" width={10} height={10} className="ml-3" />
                             </div>
-
                         </div>
 
                     </div>
 
                     <div className="w-[31%]  mb-8" style={{ boxShadow: "0px 2px 4px 0px #0000001A" }}>
-
                         <Image src={bed} alt="product image" className="m-auto" width={350} height={350} />
                         <div className=" mb-3 p-5">
                             <div className="flex text-[#737373] text-[14px] font-[400]">
@@ -115,7 +112,6 @@ const FeaturedPost = () => {
                                 <span>Learn More</span>
                                 <Image src={chevron_right} alt="like" width={10} height={10} className="ml-3" />
                             </div>
-
                         </div>
 
                     </div>

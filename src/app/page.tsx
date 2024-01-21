@@ -1,18 +1,18 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import FeaturedPost from "@/components/Home/FeaturedPost";
-import FeedBack from "@/components/Home/FeedBack";
-import HeroSection from "@/components/Home/HeroSection";
-import NewsLetter from "@/components/Home/NewsLetter";
-import ProductList from "@/components/Home/ProductList";
-import ServiceList from "@/components/Home/ServiceList";
+import FeaturedPost from "@/app/home/FeaturedPost";
+import FeedBack from "@/app/home/FeedBack";
+import HeroSection from "@/app/home/HeroSection";
+import NewsLetter from "@/app/home/NewsLetter";
+import ProductList from "@/app/home/ProductList";
+import ServiceList from "@/app/home/ServiceList";
 
 
 
 export default function Home() {
   return (
     <main>
-        <Header/>
+        <Header isCompact={false} />
         <HeroSection/>
         <ProductList/>
         <ServiceList/>

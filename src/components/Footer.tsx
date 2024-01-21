@@ -1,4 +1,3 @@
-import Image from "next/image"
 import { FaFacebook } from "react-icons/fa"
 import { SlSocialInstagram } from "react-icons/sl"
 import { TiSocialTwitter } from "react-icons/ti"
@@ -12,7 +11,7 @@ const Footer = () => {
         <div>
             <div className="px-[11.5rem] bg-[#FAFAFA] pt-5 pb-1">
                 <div className="flex justify-between pt-8 pb-[4rem] border-[#E6E6E6] border-b">
-                    <div className="text-[#252B42] text-[24px] font-[700] w-[20%]">
+                    <div className="text-[#252B42] text-[21px] font-[700] w-[20%]">
                         Bandage
                     </div>
                     <div className="flex items-center text-[#23A6F0] text-[24px]">
