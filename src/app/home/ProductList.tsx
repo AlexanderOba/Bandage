@@ -1,5 +1,11 @@
+"use client"
 import Image from "next/image"
 import lamp from "../../../public/lamp.png"
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/types/Product";
+import { useEffect, useState } from "react";
+import { getProducts } from "@/store/Products";
+import Link from "next/link";
 
 
 interface ProductProps {
@@ -7,12 +13,36 @@ interface ProductProps {
 }
 
 const ProductList: React.FC<ProductProps> = ({ showStyles }) => {
+    const [visibleProducts, setVisibleProducts] = useState(10); // Initial number of products to display
+    const itemsPerPage = 10;
+    const totalItemsPerPage = 30
+    const product = useSelector((state: RootState) => state.product.product);
+
+    const dispatch = useDispatch();
+
+    const loadMoreProducts = () => {
+        setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + itemsPerPage);
+    };
+
+    const showLessProducts = () => {
+        setVisibleProducts(10); // Reset to the initial state
+    };
+
+    const displayedProducts = Array.isArray(product) ? product.slice(0, visibleProducts) : [];
+    const shouldShowMoreButton = visibleProducts < product.length;
+    const shouldShowLessButton = visibleProducts >= totalItemsPerPage;
+
+    useEffect(() => {
+        dispatch(getProducts() as any);
+        console.log("bandage", product)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch]);
+
 
     const hideFeature = showStyles ? "hidden" : "block";
     const changeWrapperWidth = showStyles ? "w-[100%]" : "w-[81%]";
     const changePadding = showStyles ? "px-0 pb-7" : "pb-[8rem] px-10";
     const changeCardWidth = showStyles ? "w-[22%]" : "w-[17%]";
-
 
     return (
         <div className={`${changePadding} pt-3 `}>
@@ -23,92 +53,42 @@ const ProductList: React.FC<ProductProps> = ({ showStyles }) => {
             </div>
             <div className="flex justify-center">
                 <div className={`flex flex-wrap justify-center pb-4 ${changeWrapperWidth}`}>
-                    <div className={`${changeCardWidth} mr-7 mb-8`}>
-                        <Image src={lamp} alt="product image" className="w-full" width={178} height={178} />
-                        <div className=" text-center mb-3 py-8 bg-[#fff]">
-                            <h3 className="text-[#252B42] font-bold text-[16px] mb-3">Graphic Design</h3>
-                            <p className="text-[#737373] text-[14px] font-semibold mb-3">English Department</p>
-                            <p className="text-[#737373] text-[16px] font-semibold">$16.48 <span className="text-[#23856D] ml-2">$6.48</span> </p>
-                        </div>
-                    </div>
-                    <div className={`${changeCardWidth} mr-7 mb-8`}>
-                        <Image src={lamp} alt="product image" className="w-full" width={178} height={178} />
-                        <div className=" text-center mb-3 py-8 bg-[#fff]">
-                            <h3 className="text-[#252B42] font-bold text-[16px] mb-3">Graphic Design</h3>
-                            <p className="text-[#737373] text-[14px] font-semibold mb-3">English Department</p>
-                            <p className="text-[#737373] text-[16px] font-semibold">$16.48 <span className="text-[#23856D] ml-2">$6.48</span> </p>
-                        </div>
-                    </div>
-                    <div className={`${changeCardWidth} mr-7 mb-8`}>
-                        <Image src={lamp} alt="product image" className="w-full" width={178} height={178} />
-                        <div className=" text-center mb-3 py-8 bg-[#fff]">
-                            <h3 className="text-[#252B42] font-bold text-[16px] mb-3">Graphic Design</h3>
-                            <p className="text-[#737373] text-[14px] font-semibold mb-3">English Department</p>
-                            <p className="text-[#737373] text-[16px] font-semibold">$16.48 <span className="text-[#23856D] ml-2">$6.48</span> </p>
-                        </div>
-                    </div>
-                    <div className={`${changeCardWidth} mr-7 mb-8`}>
-                        <Image src={lamp} alt="product image" className="w-full" width={178} height={178} />
-                        <div className=" text-center mb-3 py-8 bg-[#fff]">
-                            <h3 className="text-[#252B42] font-bold text-[16px] mb-3">Graphic Design</h3>
-                            <p className="text-[#737373] text-[14px] font-semibold mb-3">English Department</p>
-                            <p className="text-[#737373] text-[16px] font-semibold">$16.48 <span className="text-[#23856D] ml-2">$6.48</span> </p>
-                        </div>
-                    </div>
-                    <div className={`${changeCardWidth} mr-7 mb-8`}>
-                        <Image src={lamp} alt="product image" className="w-full" width={178} height={178} />
-                        <div className=" text-center mb-3 py-8 bg-[#fff]">
-                            <h3 className="text-[#252B42] font-bold text-[16px] mb-3">Graphic Design</h3>
-                            <p className="text-[#737373] text-[14px] font-semibold mb-3">English Department</p>
-                            <p className="text-[#737373] text-[16px] font-semibold">$16.48 <span className="text-[#23856D] ml-2">$6.48</span> </p>
-                        </div>
-                    </div>
-                    <div className={`${changeCardWidth} mr-7 mb-8`}>
-                        <Image src={lamp} alt="product image" className="w-full" width={178} height={178} />
-                        <div className=" text-center mb-3 py-8 bg-[#fff]">
-                            <h3 className="text-[#252B42] font-bold text-[16px] mb-3">Graphic Design</h3>
-                            <p className="text-[#737373] text-[14px] font-semibold mb-3">English Department</p>
-                            <p className="text-[#737373] text-[16px] font-semibold">$16.48 <span className="text-[#23856D] ml-2">$6.48</span> </p>
-                        </div>
-                    </div>
-                    <div className={`${changeCardWidth} mr-7 mb-8`}>
-                        <Image src={lamp} alt="product image" className="w-full" width={178} height={178} />
-                        <div className=" text-center mb-3 py-8 bg-[#fff]">
-                            <h3 className="text-[#252B42] font-bold text-[16px] mb-3">Graphic Design</h3>
-                            <p className="text-[#737373] text-[14px] font-semibold mb-3">English Department</p>
-                            <p className="text-[#737373] text-[16px] font-semibold">$16.48 <span className="text-[#23856D] ml-2">$6.48</span> </p>
-                        </div>
-                    </div>
-                    <div className={`${changeCardWidth} mr-7 mb-8`}>
-                        <Image src={lamp} alt="product image" className="w-full" width={178} height={178} />
-                        <div className=" text-center mb-3 py-8 bg-[#fff]">
-                            <h3 className="text-[#252B42] font-bold text-[16px] mb-3">Graphic Design</h3>
-                            <p className="text-[#737373] text-[14px] font-semibold mb-3">English Department</p>
-                            <p className="text-[#737373] text-[16px] font-semibold">$16.48 <span className="text-[#23856D] ml-2">$6.48</span> </p>
-                        </div>
-                    </div>
-                    <div className={`${changeCardWidth} mr-7 mb-8`}>
-                        <Image src={lamp} alt="product image" className="w-full" width={178} height={178} />
-                        <div className=" text-center mb-3 py-8 bg-[#fff]">
-                            <h3 className="text-[#252B42] font-bold text-[16px] mb-3">Graphic Design</h3>
-                            <p className="text-[#737373] text-[14px] font-semibold mb-3">English Department</p>
-                            <p className="text-[#737373] text-[16px] font-semibold">$16.48 <span className="text-[#23856D] ml-2">$6.48</span> </p>
-                        </div>
-                    </div>
-                    <div className={`${changeCardWidth} mr-7 mb-8`}>
-                        <Image src={lamp} alt="product image" className="w-full" width={178} height={178} />
-                        <div className=" text-center mb-3 py-8 bg-[#fff]">
-                            <h3 className="text-[#252B42] font-bold text-[16px] mb-3">Graphic Design</h3>
-                            <p className="text-[#737373] text-[14px] font-semibold mb-3">English Department</p>
-                            <p className="text-[#737373] text-[16px] font-semibold">$16.48 <span className="text-[#23856D] ml-2">$6.48</span> </p>
-                        </div>
-                    </div>
+                    {displayedProducts?.map((data: any, i) => (
+                        <Link href={`/shop/?id=${data?.id}`} className={`${changeCardWidth} mr-7 mb-8`} key={data?.id}>
+                            <div className="h-[200px] w-full">
+                                <Image src={data?.thumbnail} alt="product image" className="w-full h-full" width={178} height={178} />
+                            </div>
+                            <div className=" text-center mb-3 py-8 bg-[#fff]">
+                                <h3 className="text-[#252B42] font-bold text-[16px] mb-3">{data?.title}</h3>
+                                <p className="text-[#737373] text-[14px] font-semibold mb-3">{data?.category}</p>
+                                <p className="text-[#737373] text-[16px] font-semibold">${data?.price} <span className="text-[#23856D] ml-2">${data?.discountPercentage}</span> </p>
+                            </div>
+                        </Link>
+                    ))}
                 </div>
             </div>
-            <div className={`text-center ${hideFeature}`}>
-                <button className={`cursor-pointer  mt-9 py-3 text-[14px] px-[2.4rem] border font-bold border-[#23A6F0] rounded-md text-[#23A6F0] hover:bg-[#23A6F0] hover:text-[#fff] duration-300`}>
-                    LOAD MORE PRODUCTS
-                </button>
+
+            <div className={`${hideFeature}`}>
+                {shouldShowMoreButton && (
+                    <div className="text-center ">
+                        <button
+                            onClick={loadMoreProducts}
+                            className="cursor-pointer mt-9 py-3 text-[14px] px-[2.4rem] border font-bold border-[#23A6F0] rounded-md text-[#23A6F0] hover:bg-[#23A6F0] hover:text-[#fff] duration-300"
+                        >
+                            LOAD MORE PRODUCTS
+                        </button>
+                    </div>
+                )}
+                {shouldShowLessButton && (
+                    <div className="text-center">
+                        <button
+                            onClick={showLessProducts}
+                            className="cursor-pointer mt-9 py-3 text-[14px] px-[2.4rem] border font-bold border-[#23A6F0] rounded-md text-[#23A6F0] hover:bg-[#23A6F0] hover:text-[#fff] duration-300"
+                        >
+                            SHOW LESS PRODUCTS
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     )

@@ -1,28 +1,45 @@
+"use client"
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { GoChevronRight } from "react-icons/go";
+import StarRating from "@/components/StarRating";
+import { getProductsDetailsById } from "@/store/Products";
 import Image from "next/image";
 import Link from "next/link";
-import carousel from "../../../public/carousel.png"
-import reviews from "../../../public/reviews.png"
-import product_colors from "../../../public/product_colors.png"
-import more from "../../../public/more.png"
-import likee from "../../../public/likee.png"
-import basket from "../../../public/basket.png"
-import child_images from "../../../public/child_images.png"
-import purplechair from "../../../public/purplechair.png"
-import lyft from "../../../public/lyft.png"
-import robot from "../../../public/robot.png"
-import stripe from "../../../public/stripe.png"
-import leaf from "../../../public/leaf.png"
-import aws from "../../../public/aws.png"
-import hooli from "../../../public/hooli.png"
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { GoChevronRight } from "react-icons/go";
+import { useDispatch, useSelector } from "react-redux";
+import aws from "../../../public/aws.png";
+import basket from "../../../public/basket.png";
+import hooli from "../../../public/hooli.png";
+import leaf from "../../../public/leaf.png";
+import likee from "../../../public/likee.png";
+import lyft from "../../../public/lyft.png";
+import more from "../../../public/more.png";
+import product_colors from "../../../public/product_colors.png";
+import purplechair from "../../../public/purplechair.png";
+import robot from "../../../public/robot.png";
+import stripe from "../../../public/stripe.png";
 import ProductList from "../home/ProductList";
 
 
 
 
 export default function Shop() {
+  const productDetails: any = useSelector((state: any) => state?.product?.productDetails);
+
+  const params = useSearchParams();
+  const [productId, setProductId] = useState(params.get('id'));
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (productId) {
+      dispatch(getProductsDetailsById(productId) as any);
+      console.log(productDetails)
+    }
+  }, [productId, dispatch]);
+
   return (
     <main>
       <Header isCompact={true} />
@@ -35,13 +52,26 @@ export default function Shop() {
 
         <div className="flex">
           <div className="w-[51%]">
-            <Image src={carousel} alt="furiniture 1" width={500} height={500} />
+            <Image src={productDetails?.thumbnail} alt="furiniture 1" width={500} height={500} />
+
+            <div className="flex mt-5">
+              {productDetails?.images?.map((data: any) => (
+                <div className="w-[18%] mr-3 h-[75px]">
+                  <Image src={data} alt="furiniture 1" width={150} height={150} className="w-full h-full" />
+                </div>
+              ))}
+            </div>
           </div>
+          
           <div className="pl-12 pt-2 w-[45%]">
             <div className=" border-b mb-7">
-              <p className="mr-3 text-[#252B42] text-[20px] font-normal mb-3">Floating Phone</p>
-              <Image src={reviews} alt="furiniture 1" width={200} height={200} className="mb-4" />
-              <p className="text-[#252B42] text-[24px] font-bold mb-2">$1,139.33</p>
+              <p className="mr-3 text-[#252B42] text-[20px] font-normal mb-3">{productDetails?.title}</p>
+              {/* <Image src={reviews} alt="furiniture 1" width={200} height={200} className="mb-4" /> */}
+              <div className="flex">
+                <StarRating ratings={productDetails?.rating} />
+                <p className="text-[#737373] text-[14px] font-bold pt-[1px] ml-2">10 reviews</p>
+              </div>
+              <p className="text-[#252B42] text-[24px] font-bold mb-2 mt-4">${productDetails?.price}</p>
               <p className=" text-[#737373] text-[14px] font-bold mb-[7rem]"> <span className="mr-2">Availability</span>  :<span className="text-[#23A6F0] ml-1">In Stock</span> </p>
             </div>
             <Image src={product_colors} alt="furiniture 1" width={150} height={150} className="mb-16" />
@@ -60,10 +90,6 @@ export default function Shop() {
               </div>
             </div>
           </div>
-        </div>
-
-        <div>
-          <Image src={child_images} alt="furiniture 1" width={180} height={180} className="mt-5" />
         </div>
       </div>
 
@@ -96,7 +122,7 @@ export default function Shop() {
 
       <div className="bg-[#FAFAFA] px-[11.5rem]">
         <p className="text-[#252B42] text-[24px] font-bold mb-5 pt-10 pb-6 border-b-2 border-[#ECECEC]">BESTSELLER PRODUCTS</p>
-        
+
         <ProductList showStyles={true} />
 
         <div className="flex justify-between items-center">
@@ -121,7 +147,7 @@ export default function Shop() {
         </div>
       </div>
 
-      <Footer changeBackground={true}/>
+      <Footer changeBackground={true} />
     </main>
   );
 }
