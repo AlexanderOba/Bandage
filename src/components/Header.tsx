@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ isCompact }) => {
                     </div>
                     <div className="flex text-[#737373] text-[14px] font-[600] justify-around w-[50%]">
                         <Link href="/"> <p>Home</p></Link>
-                        <Link href="/shop"><p className="flex items-center">Shop <FiChevronDown className="ml-1 text-[16px]" /></p></Link>
+                        <p className="flex items-center">Shop <FiChevronDown className="ml-1 text-[16px]" /></p>
                         <p>About</p>
                         <p>Blog</p>
                         <p>Contact</p>

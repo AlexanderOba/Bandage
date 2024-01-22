@@ -5,8 +5,6 @@ import concrete from "../../../public/concrete.svg"
 
 
 
-
-
 const ServiceList = () => {
 
     return (

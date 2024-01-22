@@ -29,16 +29,17 @@ export default function Shop() {
   const productDetails: any = useSelector((state: any) => state?.product?.productDetails);
 
   const params = useSearchParams();
-  const [productId, setProductId] = useState(params.get('id'));
-
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const productId = params.get('id');
+
     if (productId) {
       dispatch(getProductsDetailsById(productId) as any);
       console.log(productDetails)
     }
-  }, [productId, dispatch]);
+
+  }, [params, dispatch]);
 
   return (
     <main>
@@ -62,7 +63,7 @@ export default function Shop() {
               ))}
             </div>
           </div>
-          
+
           <div className="pl-12 pt-2 w-[45%]">
             <div className=" border-b mb-7">
               <p className="mr-3 text-[#252B42] text-[20px] font-normal mb-3">{productDetails?.title}</p>

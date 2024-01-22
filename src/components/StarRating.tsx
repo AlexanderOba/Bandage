@@ -1,10 +1,10 @@
 "use client"
-import * as React from 'react';
+import { StarRatingType } from '@/types/Product';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
 
-export default function StarRating({ratings}) {
+
+export default function StarRating({ratings}: StarRatingType) {
   return (
     <Box
       sx={{

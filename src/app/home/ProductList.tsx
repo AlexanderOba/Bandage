@@ -1,11 +1,10 @@
 "use client"
-import Image from "next/image"
-import lamp from "../../../public/lamp.png"
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/types/Product";
-import { useEffect, useState } from "react";
 import { getProducts } from "@/store/Products";
+import { RootState } from "@/types/Product";
+import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 
 interface ProductProps {
@@ -15,7 +14,7 @@ interface ProductProps {
 const ProductList: React.FC<ProductProps> = ({ showStyles }) => {
     const [visibleProducts, setVisibleProducts] = useState(10); // Initial number of products to display
     const itemsPerPage = 10;
-    const totalItemsPerPage = 30
+    
     const product = useSelector((state: RootState) => state.product.product);
 
     const dispatch = useDispatch();
@@ -24,13 +23,8 @@ const ProductList: React.FC<ProductProps> = ({ showStyles }) => {
         setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + itemsPerPage);
     };
 
-    const showLessProducts = () => {
-        setVisibleProducts(10); // Reset to the initial state
-    };
-
     const displayedProducts = Array.isArray(product) ? product?.slice(0, visibleProducts) : [];
     const shouldShowMoreButton = visibleProducts < product?.length;
-    const shouldShowLessButton = visibleProducts >= totalItemsPerPage;
 
     useEffect(() => {
         dispatch(getProducts() as any);
@@ -76,16 +70,6 @@ const ProductList: React.FC<ProductProps> = ({ showStyles }) => {
                             className="cursor-pointer mt-9 py-3 text-[14px] px-[2.4rem] border font-bold border-[#23A6F0] rounded-md text-[#23A6F0] hover:bg-[#23A6F0] hover:text-[#fff] duration-300"
                         >
                             LOAD MORE PRODUCTS
-                        </button>
-                    </div>
-                )}
-                {shouldShowLessButton && (
-                    <div className="text-center">
-                        <button
-                            onClick={showLessProducts}
-                            className="cursor-pointer mt-9 py-3 text-[14px] px-[2.4rem] border font-bold border-[#23A6F0] rounded-md text-[#23A6F0] hover:bg-[#23A6F0] hover:text-[#fff] duration-300"
-                        >
-                            SHOW LESS PRODUCTS
                         </button>
                     </div>
                 )}

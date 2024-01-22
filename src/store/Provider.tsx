@@ -2,8 +2,14 @@
 import { Provider } from 'react-redux'
 import { persistor, store } from '.'
 import { PersistGate } from 'redux-persist/integration/react'
+import { ReactNode } from 'react';
 
-export default function Providers({ children }) {
+
+interface ProvidersProps {
+  children: ReactNode;
+}
+
+export const Providers: React.FC<ProvidersProps> = ({ children }: ProvidersProps) => {
   return (
     <>
       <Provider store={store}>
