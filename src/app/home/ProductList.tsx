@@ -28,8 +28,8 @@ const ProductList: React.FC<ProductProps> = ({ showStyles }) => {
         setVisibleProducts(10); // Reset to the initial state
     };
 
-    const displayedProducts = Array.isArray(product) ? product.slice(0, visibleProducts) : [];
-    const shouldShowMoreButton = visibleProducts < product.length;
+    const displayedProducts = Array.isArray(product) ? product?.slice(0, visibleProducts) : [];
+    const shouldShowMoreButton = visibleProducts < product?.length;
     const shouldShowLessButton = visibleProducts >= totalItemsPerPage;
 
     useEffect(() => {
