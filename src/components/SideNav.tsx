@@ -5,8 +5,8 @@ import Link from 'next/link';
 import * as React from 'react';
 import { BsCart, BsSearch } from 'react-icons/bs';
 import { FaRegUser } from 'react-icons/fa';
-import { GiHamburgerMenu } from "react-icons/gi";
 import like from "../../public/like.png";
+import burger from "../../public/burger.png";
 import { useSelector } from 'react-redux';
 
 
@@ -29,7 +29,7 @@ export default function SideNav() {
     return (
         <div>
             <Button onClick={toggleDrawer(true)} sx={{ color: "#242424" }}>
-                <GiHamburgerMenu className="text-[27px]" />
+                <Image src={burger} alt="like" width={28} height={28} className="mr-1" />
             </Button>
             <Drawer
                 anchor="top"

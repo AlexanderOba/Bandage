@@ -104,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({ isCompact, openProductModal }) => {
                     </div>
                 </div>
 
-                <div className="block lg:hidden">
+                <div className="block md:hidden">
                     <SideNav />
                 </div>
             </div>
