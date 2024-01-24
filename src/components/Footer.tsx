@@ -15,9 +15,9 @@ const Footer: React.FC<FooterProps> = ({ changeBackground }) => {
 
     return (
         <div>
-            <div className={`px-[11.5rem] ${changeColor} pt-5 pb-1`}>
+            <div className={`lg:px-[11.5rem] px-10 md:px-6 ${changeColor} pt-5 pb-1`}>
                 <div className="flex justify-between pt-8 pb-[4rem] border-[#E6E6E6] border-b">
-                    <div className="text-[#252B42] text-[21px] font-[700] w-[20%]">
+                    <div className="text-[#252B42] text-[28px] md:text-[21px] font-[700] w-[20%]">
                         Bandage
                     </div>
                     <div className="flex items-center text-[#23A6F0] text-[24px]">
@@ -28,22 +28,22 @@ const Footer: React.FC<FooterProps> = ({ changeBackground }) => {
                 </div>
             </div>
 
-            <div className="pl-[11.5rem] pr-28 pt-14 flex md:w-full w-[66%] gap-10 justify-between">
-                <div className='flex flex-col md:mb-5'>
+            <div className="lg:pl-[11.5rem] md:px-6 lg:pr-28 pt-14 flex flex-wrap md:flex-nowrap px-10  w-full  gap-10 justify-between">
+                <div className='flex flex-col md:mb-5 w-full md:w-[22%] lg:w-[12%]'>
                     <header className='text-[16px] text-[#252B42] font-bold mb-6'>Company Info</header>
                     <p className="mb-4 text-[#737373] text-[14px] font-bold">About Us</p>
                     <p className="mb-4 text-[#737373] text-[14px] font-bold ">We are hiring</p>
                     <p className="mb-4 text-[#737373] text-[14px] font-bold ">Blog</p>
                 </div>
 
-                <div className='flex flex-col md:mb-5'>
+                <div className='flex flex-col md:mb-5 w-full md:w-[22%] lg:w-[12%]'>
                     <header className='text-[16px] text-[#252B42] font-bold mb-6'>Legal</header>
                     <p className="mb-4 text-[#737373] text-[14px] font-bold">About Us</p>
                     <p className="mb-4 text-[#737373] text-[14px] font-bold ">We are hiring</p>
                     <p className="mb-4 text-[#737373] text-[14px] font-bold ">Blog</p>
                 </div>
 
-                <div className='flex flex-col md:mb-5  w-[16%]'>
+                <div className='flex flex-col md:mb-5 w-full lg:w-[12%]  md:w-[16%]'>
                     <header className='text-[16px] text-[#252B42] font-bold mb-6'>Features</header>
                     <p className="mb-4 text-[#737373] text-[14px] font-bold">Business Marketing</p>
                     <p className="mb-4 text-[#737373] text-[14px] font-bold ">User Analytic</p>
@@ -51,14 +51,14 @@ const Footer: React.FC<FooterProps> = ({ changeBackground }) => {
                     <p className="mb-4 text-[#737373] text-[14px] font-bold ">Unlimited Support</p>
                 </div>
 
-                <div className='flex flex-col md:mb-5  w-[12%]'>
+                <div className='flex flex-col md:mb-5 w-full lg:w-[12%]  md:w-[12%]'>
                     <header className='text-[16px] text-[#252B42] font-bold mb-6'>Resources</header>
                     <p className="mb-4 text-[#737373] text-[14px] font-bold">IOS & Android</p>
                     <p className="mb-4 text-[#737373] text-[14px] font-bold ">Watch a Demo</p>
                     <p className="mb-4 text-[#737373] text-[14px] font-bold ">API</p>
                 </div>
 
-                <div className='flex flex-col md:mb-5 w-[32%]'>
+                <div className='flex flex-col md:mb-5 w-full lg:w-[31%] md:w-[32%]'>
                     <header className='text-[16px] text-[#252B42] font-bold mb-6'>Get In Touch</header>
                     <div className='mt-4 mb-2 flex items-center gap-0 justify-center'>
                         <input
@@ -77,7 +77,7 @@ const Footer: React.FC<FooterProps> = ({ changeBackground }) => {
                 </div>
             </div>
 
-            <div className="px-[11.5rem] bg-[#FAFAFA] pt-7 pb-7">
+            <div className="lg:px-[11.5rem] md:px-6 bg-[#FAFAFA] pt-7 pb-7">
                 <div className="text-[#737373] text-[14px] font-[700]">
                     Made With Love By Finland All Right Reserved
                 </div>

@@ -22,7 +22,7 @@ const FeaturedPost = () => {
             <div className="flex justify-center pt-[3.5rem]">
                 <div className="flex flex-wrap justify-center pb-4 w-[87%]">
 
-                    <div className="w-[31%] mr-3 mb-8" style={{ boxShadow: "0px 2px 4px 0px #0000001A" }}>
+                    <div className="md:w-[31%] w-full mr-3 mb-8" style={{ boxShadow: "0px 2px 4px 0px #0000001A" }}>
 
                         <Image src={room} alt="product image" className=" m-auto " width={350} height={350} />
                         <div className="mb-3 p-5">
@@ -54,7 +54,7 @@ const FeaturedPost = () => {
                         </div>
                     </div>
 
-                    <div className="w-[31%] mr-3 mb-8" style={{ boxShadow: "0px 2px 4px 0px #0000001A" }}>
+                    <div className="md:w-[31%] w-full mr-3 mb-8" style={{ boxShadow: "0px 2px 4px 0px #0000001A" }}>
                         <Image src={kitchen} alt="product image" className=" m-auto" width={350} height={350} />
                         <div className=" mb-3 p-5">
                             <div className="flex text-[#737373] text-[14px] font-[400]">
@@ -85,7 +85,7 @@ const FeaturedPost = () => {
 
                     </div>
 
-                    <div className="w-[31%]  mb-8" style={{ boxShadow: "0px 2px 4px 0px #0000001A" }}>
+                    <div className="md:w-[31%] w-full  mb-8" style={{ boxShadow: "0px 2px 4px 0px #0000001A" }}>
                         <Image src={bed} alt="product image" className="m-auto" width={350} height={350} />
                         <div className=" mb-3 p-5">
                             <div className="flex text-[#737373] text-[14px] font-[400]">

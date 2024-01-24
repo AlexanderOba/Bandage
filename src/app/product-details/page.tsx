@@ -72,7 +72,6 @@ export default function ProductDetails() {
     setModalContent(null);
   };
 
-  
   const addProductToWishList = async (userId: any, products: any) => {
     try {
       setState({ ...state, isLoading: true });
@@ -81,7 +80,6 @@ export default function ProductDetails() {
         products: products,
       });
 
-      console.log("items", response.data.products)
       dispatch(wishListActions.addToCart({
         id: response.data.products[0].id,
         price: response?.data?.products[0]?.price,
@@ -91,10 +89,10 @@ export default function ProductDetails() {
         thumbnail: response?.data?.products[0]?.thumbnail, 
       }));
 
-      setState({ ...state, isLoading: false, successMessage: "Product added successfully to wishlist", notificationStatus: true });
+      setState({ ...state, isLoading: false, successMessage: "Item added successfully to wishlist", notificationStatus: true });
       setIsOpen(false);
     } catch (error) {
-      setState({ ...state, isLoading: false, errorMessage: "failed to add product", notificationStatus: true });
+      setState({ ...state, isLoading: false, errorMessage: "failed to add Item", notificationStatus: true });
     }
   };
 
@@ -106,7 +104,6 @@ export default function ProductDetails() {
         products: products,
       });
 
-      console.log("items", response.data.products)
       dispatch(cartActions.addToCart({
         id: response.data.products[0].id,
         price: response?.data?.products[0]?.price,
@@ -116,10 +113,10 @@ export default function ProductDetails() {
         thumbnail: response?.data?.products[0]?.thumbnail, 
       }));
 
-      setState({ ...state, isLoading: false, successMessage: "Product added successfully to cart", notificationStatus: true });
+      setState({ ...state, isLoading: false, successMessage: "Item added successfully to cart", notificationStatus: true });
       setIsOpen(false);
     } catch (error) {
-      setState({ ...state, isLoading: false, errorMessage: "Failed to add product", notificationStatus: true });
+      setState({ ...state, isLoading: false, errorMessage: "Failed to add Item", notificationStatus: true });
     }
   };
 
@@ -153,15 +150,15 @@ export default function ProductDetails() {
           icon={<FaCheckCircle className='mr-4 text-[#fff] text-[20px]' />}
         />
       )}
-      <div className="bg-[#FAFAFA] px-[11.5rem] pb-7">
+      <div className="bg-[#FAFAFA] lg:px-[11.5rem] px-6 pb-7">
         <div className="flex text-[#737373]  text-[14px] items-center  pt-8 pb-7 font-[600]">
           <Link href="/"> <p className="mr-3 text-[#252B42] font-bold">Home</p></Link>
           <GoChevronRight className="mr-3 text-[#BDBDBD] text-[23px] font-normal" />
           <p className="text-[#BDBDBD]">Shop</p>
         </div>
 
-        <div className="flex">
-          <div className="w-[51%]">
+        <div className="flex flex-wrap">
+          <div className="w-[100%] md:w-[51%]">
             <Image src={productDetails?.thumbnail} alt="furiniture 1" width={500} height={500} />
 
             <div className="flex mt-5">
@@ -173,7 +170,7 @@ export default function ProductDetails() {
             </div>
           </div>
 
-          <div className="pl-12 pt-2 w-[45%]">
+          <div className="lg:pl-12 md:pl-8 pt-2 md:w-[45%] w-[100%]">
             <div className=" border-b mb-7">
               <p className="mr-3 text-[#252B42] text-[20px] font-normal mb-3">{productDetails?.title}</p>
               <div className="flex">
@@ -204,12 +201,12 @@ export default function ProductDetails() {
 
       <div className="flex text-[#737373] text-[14px] py-7 font-[600] justify-center border-b mb-9">
         <p>Description</p>
-        <p className="mx-12">Additional Information</p>
+        <p className="md:mx-12 mx-4">Additional Information</p>
         <p>Reviews (0)</p>
       </div>
 
-      <div className="flex px-[11.5rem] justify-between pb-9">
-        <div className="pt-2 w-[45%]">
+      <div className="flex flex-wrap lg:px-[11.5rem] px-6 justify-between pb-9">
+        <div className="pt-2 md:w-[45%] w-[100%]">
           <p className="text-[#252B42] text-[20px] font-bold mb-6">the quick fox jumps over </p>
           <p className="text-[#737373] text-[14px] mb-6">
             Met minim Mollie non desert Alamo est sit cliquey dolor do met sent.
@@ -224,34 +221,34 @@ export default function ProductDetails() {
             RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.
           </p>
         </div>
-        <div className="w-[41%]">
+        <div className="md:w-[41%] w-[100%]">
           <Image src={purplechair} alt="furiniture 1" width={450} height={450} />
         </div>
       </div>
 
-      <div className="bg-[#FAFAFA] px-[11.5rem]">
+      <div className="bg-[#FAFAFA] lg:px-[11.5rem] px-6">
         <p className="text-[#252B42] text-[24px] font-bold mb-5 pt-10 pb-6 border-b-2 border-[#ECECEC]">BESTSELLER PRODUCTS</p>
 
         <ProductList showStyles={true} />
 
-        <div className="flex justify-between items-center">
-          <div>
-            <Image src={hooli} alt="" width={80} height={80} className="mb-16" />
+        <div className="flex flex-wrap md:justify-between justify-center items-center">
+          <div className="w-full md:w-0">
+            <Image src={hooli} alt="" width={80} height={80} className="mb-16 m-auto md:m-0" />
           </div>
-          <div>
-            <Image src={lyft} alt="furiniture 1" width={80} height={80} className="mb-16" />
+          <div className="w-full md:w-0">
+            <Image src={lyft} alt="furiniture 1" width={80} height={80} className="mb-16 m-auto md:m-0" />
           </div>
-          <div>
-            <Image src={leaf} alt="furiniture 1" width={80} height={80} className="mb-16" />
+          <div className="w-full md:w-0">
+            <Image src={leaf} alt="furiniture 1" width={80} height={80} className="mb-16 m-auto md:m-0" />
           </div>
-          <div>
-            <Image src={stripe} alt="furiniture 1" width={80} height={80} className="mb-16" />
+          <div className="w-full md:w-0">
+            <Image src={stripe} alt="furiniture 1" width={80} height={80} className="mb-16 m-auto md:m-0" />
           </div>
-          <div>
-            <Image src={aws} alt="furiniture 1" width={80} height={80} className="mb-16" />
+          <div className="w-full md:w-0">
+            <Image src={aws} alt="furiniture 1" width={80} height={80} className="mb-16 m-auto md:m-0" />
           </div>
-          <div>
-            <Image src={robot} alt="furiniture 1" width={80} height={80} className="mb-16" />
+          <div className="w-full md:w-0">
+            <Image src={robot} alt="furiniture 1" width={80} height={80} className="mb-16 m-auto md:m-0" />
           </div>
         </div>
       </div>

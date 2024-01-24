@@ -10,12 +10,13 @@ import furniture4 from "../../../public/furniture4.png"
 const HeroSection = () => {
     return (
         <div>
-            <div className="flex justify-center mt-20 mb-32 flex-wrap">
-                <div className="mr-3">
-                    <Image src={furniture1} alt="furiniture 1" width={420} height={420} />
+            <div className="flex justify-center mt-20 mb-32 flex-wrap px-4 md:px-0">
+
+                <div className="md:mr-3 mr-0 md:w-[31.5%] mb-3">
+                    <Image src={furniture1} alt="furiniture 1" width={700} height={700} />
                 </div>
 
-                <div>
+                <div className="md:w-[50%] ">
                     <div className="mb-3">
                         <Image src={furniture2} alt="furiniture 1" width={635} height={635} />
                     </div>
@@ -30,6 +31,7 @@ const HeroSection = () => {
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     )

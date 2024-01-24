@@ -9,8 +9,8 @@ import users from "../../../public/users.png"
 const FeedBack = () => {
     return (
         <div>
-            <div className="flex justify-center mt-8 mb-32 flex-wrap ">
-                <div className="mr-7 text-center pt-6 ">
+            <div className="flex justify-center mt-8 mb-32 flex-wrap px-4 md:px-0">
+                <div className="md:mr-7 mb-3 md:mb-0 text-center pt-6 ">
                     <h3 className="text-[#252B42] font-bold text-[24px] mb-5">What they say about us</h3>
                     <Image src={avatar} alt="furiniture 1" className="m-auto mb-2" width={90} height={90} />
                     <Image src={stars} alt="furiniture 1" className="m-auto mb-2" width={100} height={100} />

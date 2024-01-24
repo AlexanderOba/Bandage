@@ -16,21 +16,21 @@ const ServiceList = () => {
             </div>
             <div className="flex justify-center pt-[3.5rem]">
                 <div className="flex flex-wrap justify-around pb-4 w-[87%]">
-                    <div className="w-[21%] mb-8">
+                    <div className="md:w-[21%] w-full mb-8">
                         <Image src={wins} alt="product image" className="mb-7 m-auto " width={70} height={70} />
                         <div className=" text-center mb-3">
                             <h3 className="text-[#252B42] font-bold text-[24px] mb-3">Easy Wins</h3>
                             <p className="text-[#737373] text-[14px] font-semibold mb-3">Get your best looking smile now!</p>
                         </div>
                     </div>
-                    <div className="w-[21%] mb-8">
+                    <div className="md:w-[21%] w-full mb-8">
                         <Image src={concrete} alt="product image" className="mb-7 m-auto" width={70} height={70} />
                         <div className=" text-center mb-3">
                             <h3 className="text-[#252B42] font-bold text-[24px] mb-3">Concrete</h3>
                             <p className="text-[#737373] text-[14px] font-semibold mb-3">Defalcate is most focused in helping you discover your most beautiful smile</p>
                         </div>
                     </div>
-                    <div className="w-[21%] mb-8">
+                    <div className="md:w-[21%] w-full mb-8">
                         <Image src={growth} alt="product image" className="mb-7 m-auto" width={70} height={70} />
                         <div className=" text-center mb-3">
                             <h3 className="text-[#252B42] font-bold text-[24px] mb-3">Hack Growth</h3>

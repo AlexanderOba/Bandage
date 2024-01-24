@@ -34,9 +34,9 @@ const ProductList: React.FC<ProductProps> = ({ showStyles }) => {
 
 
     const hideFeature = showStyles ? "hidden" : "block";
-    const changeWrapperWidth = showStyles ? "w-[100%]" : "w-[81%]";
+    const changeWrapperWidth = showStyles ? "w-[100%]" : "md:w-[81%] w-full";
     const changePadding = showStyles ? "px-0 pb-7" : "pb-[8rem] px-10";
-    const changeCardWidth = showStyles ? "w-[22%]" : "w-[17%]";
+    const changeCardWidth = showStyles ? "md:w-[22%] w-full" : "md:w-[17%] w-[100%]";
 
     return (
         <div className={`${changePadding} pt-3 `}>
@@ -45,10 +45,11 @@ const ProductList: React.FC<ProductProps> = ({ showStyles }) => {
                 <h3 className="text-[#252B42] font-bold text-[24px] mb-1">BESTSELLER PRODUCTS</h3>
                 <p className="text-[#737373] text-[14px] font-semibold">Problems trying to resolve the conflict between </p>
             </div>
+
             <div className="flex justify-center">
                 <div className={`flex flex-wrap justify-center pb-4 ${changeWrapperWidth}`}>
                     {displayedProducts?.map((data: any, i) => (
-                        <Link href={`/product-details/?id=${data?.id}`} className={`${changeCardWidth} mr-7 mb-8`} key={data?.id}>
+                        <Link href={`/product-details/?id=${data?.id}`} className={`${changeCardWidth} md:mr-7 mr-0 mb-8`} key={data?.id}>
                             <div className="h-[200px] w-full">
                                 <Image src={data?.thumbnail} alt="product image" className="w-full h-full" width={178} height={178} />
                             </div>
