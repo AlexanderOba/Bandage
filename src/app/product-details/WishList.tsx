@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { cartActions } from '@/store/Cart';
 import { TiDelete } from "react-icons/ti";
+import { wishListActions } from '@/store/WishList';
 
 interface ProductItem {
     id: number | string;
@@ -12,9 +12,9 @@ interface ProductItem {
     price: number;
 }
 
-const Cart: React.FC = () => {
+const WishList: React.FC = () => {
     const [counts, setCounts] = useState<{ [itemId: string]: number }>({});
-    const product = useSelector((state: any) => state.cartList);
+    const product = useSelector((state: any) => state.wishList);
 
     const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const Cart: React.FC = () => {
         const newCount = { ...counts, [itemId]: currentCount + 1 };
         setCounts(newCount);
 
-        dispatch(cartActions.updateQuantityAndSubtotal({
+        dispatch(wishListActions.updateQuantityAndSubtotal({
             id: itemId,
             quantity: newCount[itemId],
             subtotal: newCount[itemId] * price,
@@ -36,7 +36,7 @@ const Cart: React.FC = () => {
             const newCount = { ...counts, [itemId]: currentCount - 1 };
             setCounts(newCount);
 
-            dispatch(cartActions.updateQuantityAndSubtotal({
+            dispatch(wishListActions.updateQuantityAndSubtotal({
                 id: itemId,
                 quantity: newCount[itemId],
                 subtotal: newCount[itemId] * price,
@@ -45,8 +45,9 @@ const Cart: React.FC = () => {
     };
 
     const handleDelete = (id: number | string) => {
-        dispatch(cartActions.deleteFromCart(id));
+        dispatch(wishListActions.deleteFromCart(id));
     };
+
 
     const totalAmount = product?.itemsList?.reduce((acc: number, data: ProductItem) => {
         return acc + data?.quantity * data?.price;
@@ -54,7 +55,7 @@ const Cart: React.FC = () => {
 
     return (
         <div>
-            <p className='text-[#252B42] text-md mb-7 font-semibold border-b border-gray-300 pb-3'>Shopping Cart</p>
+            <p className='text-[#252B42] text-md mb-7 font-semibold border-b border-gray-300 pb-3'>WishList</p>
             {product?.itemsList?.map((data: ProductItem) => (
                 <div key={data?.id} className='mb-7'>
                     <div className='flex mb-5 items-start justify-between'>
@@ -85,4 +86,4 @@ const Cart: React.FC = () => {
     );
 };
 
-export default Cart;
+export default WishList;

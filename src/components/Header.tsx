@@ -13,6 +13,7 @@ import like from "../../public/like.png"
 import Link from "next/link";
 import Cart from "@/app/product-details/Cart";
 import { useSelector } from "react-redux";
+import WishList from "@/app/product-details/WishList";
 
 
 interface HeaderProps {
@@ -21,7 +22,9 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isCompact, openProductModal}) => {
-    const product = useSelector((state: any) => state.cartList);
+    const cartListItem = useSelector((state: any) => state.cartList);
+    const wishListItem = useSelector((state: any) => state.wishList);
+
 
     const horizontalPadding = isCompact ? "px-[11.6rem]" : "px-[2.5rem]";
     const headerCTAWidth = isCompact ? "w-[72%]" : "w-[59%]";
@@ -31,6 +34,11 @@ const Header: React.FC<HeaderProps> = ({ isCompact, openProductModal}) => {
     const handleCartClick = () => {
         openProductModal(<Cart />);
     };
+
+    const handleWishListClick = () => {
+        openProductModal(<WishList />);
+    };
+
 
     return (
         <div>
@@ -76,10 +84,10 @@ const Header: React.FC<HeaderProps> = ({ isCompact, openProductModal}) => {
                 <div className={`flex text-[#23A6F0] text-[14px] font-bold ${headerIconsWidth}`}>
                     <div className="flex items-center mr-6"> <FaRegUser className="mr-2 text-[13px]" /> Login / Register</div>
                     <div className="flex items-center mr-8"><BsSearch className="text-[15px]" /></div>
-                    <div className="flex items-center mr-8 font-normal cursor-pointer" onClick={handleCartClick}><BsCart className="text-[15px] mr-1" /> <p>{product.totalQuantity}</p></div>
-                    <div className="flex items-center font-normal">
+                    <div className="flex items-center mr-8 font-normal cursor-pointer" onClick={handleCartClick}><BsCart className="text-[15px] mr-1" /> <p>{cartListItem.totalQuantity}</p></div>
+                    <div className="flex items-center font-normal cursor-pointer" onClick={handleWishListClick}>
                         <Image src={like} alt="like" width={18} height={18} className="mr-1" />
-                        <p>1</p>
+                        <p>{wishListItem.totalQuantity}</p>
                     </div>
                 </div>
             </div>

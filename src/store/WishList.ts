@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface CartItem {
+interface WishListItem {
   id: number | string;
   price: number;
   quantity: number;
@@ -9,29 +9,29 @@ interface CartItem {
   thumbnail: string;
 }
 
-interface CartState {
-  itemsList: CartItem[];
+interface WishListState {
+  itemsList: WishListItem[];
   totalQuantity: number;
   showCart: boolean;
   changed: boolean;
 }
 
-const cartSlice = createSlice({
-  name: "cart",
+const wishListSlice = createSlice({
+  name: "wishList",
   initialState: {
     itemsList: [],
     totalQuantity: 0,
     showCart: false,
     changed: false,
-  } as CartState,
+  } as WishListState,
 
   reducers: {
-    replaceData(state, action: PayloadAction<{ itemsList: CartItem[] }>) {
+    replaceData(state, action: PayloadAction<{ itemsList: WishListItem[] }>) {
       state.totalQuantity = action.payload.itemsList.length;
       state.itemsList = action.payload.itemsList;
     },
 
-    addToCart(state, action: PayloadAction<CartItem>) {
+    addToCart(state, action: PayloadAction<WishListItem>) {
       state.changed = true;
       const newItem = action.payload;
 
@@ -56,6 +56,7 @@ const cartSlice = createSlice({
         state.totalQuantity++;
       }
     },
+
     removeFromCart(state, action: PayloadAction<number>) {
       state.changed = true;
       const id = action.payload;
@@ -91,6 +92,7 @@ const cartSlice = createSlice({
         itemToUpdate.totalPrice = subtotal;
       }
     },
+
     setShowCart(state) {
       state.showCart = !state.showCart;
     },
@@ -104,11 +106,15 @@ const cartSlice = createSlice({
       state.itemsList = state.itemsList.filter((item) => item.id !== id);
 
       if (deletedItem) {
-        state.totalQuantity -= deletedItem.quantity;
+        // Check if deletedItem.quantity is less than or equal to totalQuantity before subtracting
+        state.totalQuantity = Math.max(
+          0,
+          state.totalQuantity - deletedItem.quantity
+        );
       }
     },
   },
 });
 
-export const cartActions = cartSlice.actions;
-export default cartSlice;
+export const wishListActions = wishListSlice.actions;
+export default wishListSlice;

@@ -26,7 +26,8 @@ import { axiosInstance } from "@/services/config";
 import { BiSolidErrorCircle } from "react-icons/bi";
 import { FaCheckCircle } from "react-icons/fa";
 import NotificationBar from "../../components/NotificationBar"
-import { cartActions } from "@/store/CartSlice";
+import { cartActions } from "@/store/Cart";
+import { wishListActions } from "@/store/WishList";
 
 interface ProductDetailState {
   errorMessage: string,
@@ -39,6 +40,8 @@ export default function ProductDetails() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+  const product = useSelector((state: any) => state.cartList);
+
 
   const [state, setState] = useState<ProductDetailState>({
     errorMessage: "",
@@ -47,10 +50,6 @@ export default function ProductDetails() {
     isLoading: false,
     productId: null,
   })
-
-  const product = useSelector((state: any) => state.cartList);
-
-  console.log("sdfd", product)
 
   const { notificationStatus, successMessage, errorMessage, isLoading, productId } = state
 
@@ -73,6 +72,32 @@ export default function ProductDetails() {
     setModalContent(null);
   };
 
+  
+  const addProductToWishList = async (userId: any, products: any) => {
+    try {
+      setState({ ...state, isLoading: true });
+      const response = await axiosInstance.post(`carts/add`, {
+        userId: userId,
+        products: products,
+      });
+
+      console.log("items", response.data.products)
+      dispatch(wishListActions.addToCart({
+        id: response.data.products[0].id,
+        price: response?.data?.products[0]?.price,
+        quantity: response?.data?.products[0]?.quantity,
+        totalPrice: response?.data?.products[0]?.totalPrice,
+        title: response?.data?.products[0]?.title,
+        thumbnail: response?.data?.products[0]?.thumbnail, 
+      }));
+
+      setState({ ...state, isLoading: false, successMessage: "Product added successfully to wishlist", notificationStatus: true });
+      setIsOpen(false);
+    } catch (error) {
+      setState({ ...state, isLoading: false, errorMessage: "failed to add product", notificationStatus: true });
+    }
+  };
+
   const addProductToCart = async (userId: any, products: any) => {
     try {
       setState({ ...state, isLoading: true });
@@ -91,10 +116,10 @@ export default function ProductDetails() {
         thumbnail: response?.data?.products[0]?.thumbnail, 
       }));
 
-      setState({ ...state, isLoading: false, successMessage: "Product added successfully", notificationStatus: true });
+      setState({ ...state, isLoading: false, successMessage: "Product added successfully to cart", notificationStatus: true });
       setIsOpen(false);
     } catch (error) {
-      setState({ ...state, isLoading: false, errorMessage: "failed to add product", notificationStatus: true });
+      setState({ ...state, isLoading: false, errorMessage: "Failed to add product", notificationStatus: true });
     }
   };
 
@@ -151,7 +176,6 @@ export default function ProductDetails() {
           <div className="pl-12 pt-2 w-[45%]">
             <div className=" border-b mb-7">
               <p className="mr-3 text-[#252B42] text-[20px] font-normal mb-3">{productDetails?.title}</p>
-              {/* <Image src={reviews} alt="furiniture 1" width={200} height={200} className="mb-4" /> */}
               <div className="flex">
                 <StarRating ratings={productDetails?.rating} />
                 <p className="text-[#737373] text-[14px] font-bold pt-[1px] ml-2">10 reviews</p>
@@ -165,7 +189,7 @@ export default function ProductDetails() {
                 Select Options
               </button>
               <div>
-                <Image src={likee} alt="furiniture 1" width={40} height={40} className="ml-2 cursor-pointer" />
+                <Image src={likee}  onClick={() => addProductToWishList(userId, products)} alt="furiniture 1" width={40} height={40} className="ml-2 cursor-pointer" />
               </div>
               <div>
                 <Image src={basket} onClick={() => addProductToCart(userId, products)} alt="furiniture 1" width={40} height={40} className="ml-2 cursor-pointer" />

@@ -1,62 +1,116 @@
-import { axiosInstance } from '@/services/config';
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface CartItem {
-  id: number;
+  id: number | string;
+  price: number;
   quantity: number;
+  totalPrice: number;
+  title: string;
+  thumbnail: string;
 }
 
 interface CartState {
-  items: CartItem[];
-  isLoading: boolean;
-  successMessage: string | null;
-  errorMessage: string | null;
+  itemsList: CartItem[];
+  totalQuantity: number;
+  showCart: boolean;
+  changed: boolean;
 }
 
-const initialState: CartState = {
-  items: [],
-  isLoading: false,
-  successMessage: null,
-  errorMessage: null,
-};
-
-export const addProductToCart = createAsyncThunk(
-  'cart/addProductToCart',
-  async ({ userId, products }: { userId: number; products: CartItem[] }, thunkAPI) => {
-    try {
-      const response = await axiosInstance.post(`carts/add`, {
-        userId,
-        products,
-      });
-      console.log(response.data)
-      return response.data;
-    } catch (error: any) {
-      throw error.response?.data || error.message;
-    }
-  }
-);
-
 const cartSlice = createSlice({
-  name: 'cart',
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(addProductToCart.pending, (state) => {
-        state.isLoading = true;
-        state.successMessage = null;
-        state.errorMessage = null;
-      })
-      .addCase(addProductToCart.fulfilled, (state, action: PayloadAction<any>) => {
-        state.isLoading = false;
-        state.successMessage = action.payload;
-        console.log(action.payload)
-      })
-      .addCase(addProductToCart.rejected, (state, action: any) => {
-        state.isLoading = false;
-        state.errorMessage = action.error.message || 'Failed to add product';
-      });
+  name: "cart",
+  initialState: {
+    itemsList: [],
+    totalQuantity: 0,
+    showCart: false,
+    changed: false,
+  } as CartState,
+
+  reducers: {
+    replaceData(state, action: PayloadAction<{ itemsList: CartItem[] }>) {
+      state.totalQuantity = action.payload.itemsList.length;
+      state.itemsList = action.payload.itemsList;
+    },
+
+    addToCart(state, action: PayloadAction<CartItem>) {
+      state.changed = true;
+      const newItem = action.payload;
+
+      console.log("from store", newItem);
+      console.log(newItem.thumbnail);
+
+      const existingItem = state.itemsList.find(
+        (item) => item.id === newItem.id
+      );
+      if (existingItem) {
+        existingItem.quantity++;
+        existingItem.totalPrice += newItem.price;
+      } else {
+        state.itemsList.push({
+          id: newItem.id,
+          price: newItem.price,
+          quantity: 1,
+          totalPrice: newItem.price,
+          title: newItem.title,
+          thumbnail: newItem.thumbnail,
+        });
+        state.totalQuantity++;
+      }
+    },
+    removeFromCart(state, action: PayloadAction<number>) {
+      state.changed = true;
+      const id = action.payload;
+
+      const existingItem = state.itemsList.find((item) => item.id === id);
+      if (existingItem && existingItem.quantity === 1) {
+        state.itemsList = state.itemsList.filter((item) => item.id !== id);
+      } else if (existingItem) {
+        existingItem.quantity--;
+        existingItem.totalPrice -= existingItem.price;
+      }
+
+      // Update totalQuantity after modifying the itemsList
+      state.totalQuantity = state.itemsList.reduce(
+        (acc, item) => acc + item.quantity,
+        0
+      );
+    },
+
+    updateQuantityAndSubtotal(
+      state,
+      action: PayloadAction<{
+        id: number | string;
+        quantity: number;
+        subtotal: number;
+      }>
+    ) {
+      const { id, quantity, subtotal } = action.payload;
+      const itemToUpdate = state.itemsList.find((item) => item.id === id);
+
+      if (itemToUpdate) {
+        itemToUpdate.quantity = quantity;
+        itemToUpdate.totalPrice = subtotal;
+      }
+    },
+    
+    setShowCart(state) {
+      state.showCart = !state.showCart;
+    },
+
+    deleteFromCart(state, action: PayloadAction<number | string>) {
+      state.changed = true;
+      const id = action.payload;
+    
+      const deletedItem = state.itemsList.find((item) => item.id === id);
+    
+      state.itemsList = state.itemsList.filter((item) => item.id !== id);
+    
+      if (deletedItem) {
+        // Check if deletedItem.quantity is less than or equal to totalQuantity before subtracting
+        state.totalQuantity = Math.max(0, state.totalQuantity - deletedItem.quantity);
+      }
+    },
   },
 });
 
-export default cartSlice.reducer;
+export const cartActions = cartSlice.actions;
+export default cartSlice;
