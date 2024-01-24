@@ -40,6 +40,9 @@ export default function ProductDetails() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+  const [isCartButtonDisabled, setButtonCartDisabled] = useState(false);
+  const [isWishListButtonDisabled, setButtonWhishListDisabled] = useState(false);
+
   const product = useSelector((state: any) => state.cartList);
 
 
@@ -86,11 +89,12 @@ export default function ProductDetails() {
         quantity: response?.data?.products[0]?.quantity,
         totalPrice: response?.data?.products[0]?.totalPrice,
         title: response?.data?.products[0]?.title,
-        thumbnail: response?.data?.products[0]?.thumbnail, 
+        thumbnail: response?.data?.products[0]?.thumbnail,
       }));
 
       setState({ ...state, isLoading: false, successMessage: "Item added successfully to wishlist", notificationStatus: true });
-      setIsOpen(false);
+      // Disable the button after a successful API call
+      setButtonWhishListDisabled(true);
     } catch (error) {
       setState({ ...state, isLoading: false, errorMessage: "failed to add Item", notificationStatus: true });
     }
@@ -110,11 +114,12 @@ export default function ProductDetails() {
         quantity: response?.data?.products[0]?.quantity,
         totalPrice: response?.data?.products[0]?.totalPrice,
         title: response?.data?.products[0]?.title,
-        thumbnail: response?.data?.products[0]?.thumbnail, 
+        thumbnail: response?.data?.products[0]?.thumbnail,
       }));
 
       setState({ ...state, isLoading: false, successMessage: "Item added successfully to cart", notificationStatus: true });
-      setIsOpen(false);
+      // Disable the button after a successful API call
+      setButtonCartDisabled(true);
     } catch (error) {
       setState({ ...state, isLoading: false, errorMessage: "Failed to add Item", notificationStatus: true });
     }
@@ -171,6 +176,7 @@ export default function ProductDetails() {
           </div>
 
           <div className="lg:pl-12 md:pl-8 pt-2 md:w-[45%] w-[100%]">
+            
             <div className=" border-b mb-7">
               <p className="mr-3 text-[#252B42] text-[20px] font-normal mb-3">{productDetails?.title}</p>
               <div className="flex">
@@ -181,20 +187,23 @@ export default function ProductDetails() {
               <p className=" text-[#737373] text-[14px] font-bold mb-[7rem]"> <span className="mr-2">Availability</span>  :<span className="text-[#23A6F0] ml-1">In Stock</span> </p>
             </div>
             <Image src={product_colors} alt="furiniture 1" width={150} height={150} className="mb-16" />
-            <div className="flex">
+            
+            <div className="flex"> 
               <button className="cursor-pointer py-3 text-[14px] px-5 border font-bold bg-[#23A6F0] rounded-md text-[#fff] hover:bg-[#23A6F0] hover:text-[#fff] duration-300">
                 Select Options
               </button>
-              <div>
-                <Image src={likee}  onClick={() => addProductToWishList(userId, products)} alt="furiniture 1" width={40} height={40} className="ml-2 cursor-pointer" />
-              </div>
-              <div>
-                <Image src={basket} onClick={() => addProductToCart(userId, products)} alt="furiniture 1" width={40} height={40} className="ml-2 cursor-pointer" />
-              </div>
+              <button className={isWishListButtonDisabled ? 'disabled-cursor' : 'cursor-pointer'} disabled={isWishListButtonDisabled}>
+                <Image src={likee} onClick={() => addProductToWishList(userId, products)} alt="furiniture 1" width={40} height={40} className="ml-2 " />
+              </button>
+
+              <button className={isCartButtonDisabled ? 'disabled-cursor' : 'cursor-pointer'} disabled={isCartButtonDisabled}>
+                <Image src={basket} onClick={() => addProductToCart(userId, products)} alt="furiniture 1" width={40} height={40} className="ml-2" />
+              </button>
               <div>
                 <Image src={more} alt="furiniture 1" width={40} height={40} className="ml-2 cursor-pointer" />
               </div>
             </div>
+
           </div>
         </div>
       </div>

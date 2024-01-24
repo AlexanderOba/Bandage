@@ -1,8 +1,13 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment, ReactNode } from "react";
 import { Dialog, Transition } from '@headlessui/react'
 
+interface ProductModalProps {
+    isOpen: boolean;
+    closeModal: () => void;
+    modalContent: ReactNode;
+}
 
-const ProductModal = ({ isOpen, closeModal, modalContent }) => {
+const ProductModal: React.FC<ProductModalProps> = ({ isOpen, closeModal, modalContent }) => {
     if (!isOpen) {
         return null; // Do not render anything if modal is not open
     }
@@ -40,6 +45,7 @@ const ProductModal = ({ isOpen, closeModal, modalContent }) => {
                                                 as="h3"
                                                 className="text-lg font-medium leading-6 text-gray-900"
                                             >
+                                                {/* Add your dialog title here if needed */}
                                             </Dialog.Title>
                                             <div className="p-2 h-[80vh] overflow-y-auto">
                                                 {modalContent}
@@ -55,9 +61,5 @@ const ProductModal = ({ isOpen, closeModal, modalContent }) => {
         </div>
     );
 };
-export default ProductModal
 
-
-
-
-
+export default ProductModal;

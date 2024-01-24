@@ -1,20 +1,29 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
+import React from 'react';
+import Slide, { SlideProps } from '@mui/material/Slide';
 import Snackbar from '@mui/material/Snackbar';
-import Slide from '@mui/material/Slide';
 import { Alert } from '@mui/material';
-import { BiSolidErrorCircle } from 'react-icons/bi';
-import { FaCheckCircle } from 'react-icons/fa';
+import Box from '@mui/material/Box';
 
-function TransitionDown(props) {
-  return <Slide {...props} direction="left" />;
+
+interface NotificationBarProps {
+  message: string;
+  color: string;
+  icon: React.ReactNode;
 }
 
-export default function NotificationBar({ message, color, icon }) {
+interface TransitionDownProps extends SlideProps {
+  direction: 'left' | 'right' | 'up' | 'down';
+}
+
+const TransitionDown: React.FC<TransitionDownProps> = ({ direction, ...props }) => {
+  return <Slide direction={direction} {...props} />;
+};
+
+const NotificationBar: React.FC<NotificationBarProps> = ({ message, color, icon }) => {
   const [state, setState] = React.useState({
     open: false,
-    vertical: 'bottom',
-    horizontal: 'right',
+    vertical: 'bottom' as 'bottom' | 'top',
+    horizontal: 'right' as 'center' | 'left' | 'right',
   });
 
   const { vertical, horizontal, open } = state;
@@ -45,7 +54,7 @@ export default function NotificationBar({ message, color, icon }) {
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
-        TransitionComponent={TransitionDown}
+        TransitionComponent={(props) => <TransitionDown {...props} direction="left" />} // Specify direction here
         key={vertical + horizontal}
         onClose={handleClose}
       >
@@ -58,4 +67,6 @@ export default function NotificationBar({ message, color, icon }) {
       </Snackbar>
     </Box>
   );
-}
+};
+
+export default NotificationBar;
