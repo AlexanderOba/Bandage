@@ -28,7 +28,6 @@ const ProductList: React.FC<ProductProps> = ({ showStyles }) => {
 
     useEffect(() => {
         dispatch(getProducts() as any);
-        console.log("bandage", product)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 

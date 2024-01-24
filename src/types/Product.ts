@@ -2,7 +2,6 @@
 export interface RootState {
   product: {
     product: [];
-    // ... other fields
   };
 }
 
