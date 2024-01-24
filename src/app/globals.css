@@ -26,6 +26,10 @@ body {
   }
 }
 
+html {
+  scroll-behavior: smooth !important;
+}
+
 .news-section {
   background-size: cover;
   background-image:   url(../../public/bat.png);

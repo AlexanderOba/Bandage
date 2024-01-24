@@ -21,18 +21,87 @@ import purplechair from "../../../public/purplechair.png";
 import robot from "../../../public/robot.png";
 import stripe from "../../../public/stripe.png";
 import ProductList from "../home/ProductList";
+import ProductModal from "./ProductModal";
+import { axiosInstance } from "@/services/config";
+import { BiSolidErrorCircle } from "react-icons/bi";
+import { FaCheckCircle } from "react-icons/fa";
+import NotificationBar from "../../components/NotificationBar"
+import { cartActions } from "@/store/CartSlice";
 
+interface ProductDetailState {
+  errorMessage: string,
+  successMessage: string,
+  notificationStatus: boolean,
+  isLoading: boolean,
+  productId: string | null,
+}
+export default function ProductDetails() {
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
 
+  const [state, setState] = useState<ProductDetailState>({
+    errorMessage: "",
+    successMessage: "",
+    notificationStatus: false,
+    isLoading: false,
+    productId: null,
+  })
 
-export default function Shop() {
+  const product = useSelector((state: any) => state.cartList);
+
+  console.log("sdfd", product)
+
+  const { notificationStatus, successMessage, errorMessage, isLoading, productId } = state
+
   const productDetails: any = useSelector((state: any) => state?.product?.productDetails);
-
   const params = useSearchParams();
   const dispatch = useDispatch();
 
+  const userId = 5;
+  const products = [
+    { id: productId, quantity: 1 },
+  ];
+
+  const openProductModal = (component: any) => {
+    setIsOpen(true);
+    setModalContent(component);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+    setModalContent(null);
+  };
+
+  const addProductToCart = async (userId: any, products: any) => {
+    try {
+      setState({ ...state, isLoading: true });
+      const response = await axiosInstance.post(`carts/add`, {
+        userId: userId,
+        products: products,
+      });
+
+      console.log("items", response.data.products)
+      dispatch(cartActions.addToCart({
+        id: response.data.products[0].id,
+        price: response?.data?.products[0]?.price,
+        quantity: response?.data?.products[0]?.quantity,
+        totalPrice: response?.data?.products[0]?.totalPrice,
+        title: response?.data?.products[0]?.title,
+        thumbnail: response?.data?.products[0]?.thumbnail, 
+      }));
+
+      setState({ ...state, isLoading: false, successMessage: "Product added successfully", notificationStatus: true });
+      setIsOpen(false);
+    } catch (error) {
+      setState({ ...state, isLoading: false, errorMessage: "failed to add product", notificationStatus: true });
+    }
+  };
+
+
   useEffect(() => {
     const productId = params.get('id');
+    setState({ ...state, productId })
 
     if (productId) {
       dispatch(getProductsDetailsById(productId) as any);
@@ -43,7 +112,22 @@ export default function Shop() {
 
   return (
     <main>
-      <Header isCompact={true} />
+      <Header isCompact={true} openProductModal={openProductModal} />
+      <ProductModal isOpen={isOpen} closeModal={closeModal} modalContent={modalContent} />
+      {notificationStatus && errorMessage && (
+        <NotificationBar
+          message={errorMessage}
+          color="#D84646"
+          icon={<BiSolidErrorCircle className='mr-4 text-[#fff] text-[20px]' />}
+        />
+      )}
+      {notificationStatus && successMessage && (
+        <NotificationBar
+          message={successMessage}
+          color="#008000"
+          icon={<FaCheckCircle className='mr-4 text-[#fff] text-[20px]' />}
+        />
+      )}
       <div className="bg-[#FAFAFA] px-[11.5rem] pb-7">
         <div className="flex text-[#737373]  text-[14px] items-center  pt-8 pb-7 font-[600]">
           <Link href="/"> <p className="mr-3 text-[#252B42] font-bold">Home</p></Link>
@@ -81,13 +165,13 @@ export default function Shop() {
                 Select Options
               </button>
               <div>
-                <Image src={likee} alt="furiniture 1" width={40} height={40} className="ml-2" />
+                <Image src={likee} alt="furiniture 1" width={40} height={40} className="ml-2 cursor-pointer" />
               </div>
               <div>
-                <Image src={basket} alt="furiniture 1" width={40} height={40} className="ml-2" />
+                <Image src={basket} onClick={() => addProductToCart(userId, products)} alt="furiniture 1" width={40} height={40} className="ml-2 cursor-pointer" />
               </div>
               <div>
-                <Image src={more} alt="furiniture 1" width={40} height={40} className="ml-2" />
+                <Image src={more} alt="furiniture 1" width={40} height={40} className="ml-2 cursor-pointer" />
               </div>
             </div>
           </div>

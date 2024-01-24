@@ -48,7 +48,7 @@ const ProductList: React.FC<ProductProps> = ({ showStyles }) => {
             <div className="flex justify-center">
                 <div className={`flex flex-wrap justify-center pb-4 ${changeWrapperWidth}`}>
                     {displayedProducts?.map((data: any, i) => (
-                        <Link href={`/shop/?id=${data?.id}`} className={`${changeCardWidth} mr-7 mb-8`} key={data?.id}>
+                        <Link href={`/product-details/?id=${data?.id}`} className={`${changeCardWidth} mr-7 mb-8`} key={data?.id}>
                             <div className="h-[200px] w-full">
                                 <Image src={data?.thumbnail} alt="product image" className="w-full h-full" width={178} height={178} />
                             </div>

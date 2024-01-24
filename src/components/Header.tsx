@@ -11,18 +11,26 @@ import { BsCart } from "react-icons/bs";
 import Image from "next/image";
 import like from "../../public/like.png"
 import Link from "next/link";
+import Cart from "@/app/product-details/Cart";
+import { useSelector } from "react-redux";
 
 
 interface HeaderProps {
-    isCompact: boolean;
+    isCompact: boolean,
+    openProductModal: (component: React.ReactNode) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ isCompact }) => {
+const Header: React.FC<HeaderProps> = ({ isCompact, openProductModal}) => {
+    const product = useSelector((state: any) => state.cartList);
+
     const horizontalPadding = isCompact ? "px-[11.6rem]" : "px-[2.5rem]";
     const headerCTAWidth = isCompact ? "w-[72%]" : "w-[59%]";
     const headerLogoWidth = isCompact ? "w-[31%]" : "w-[20%]";
     const headerIconsWidth = isCompact ? "w-[31%]" : "w-[23%]";
 
+    const handleCartClick = () => {
+        openProductModal(<Cart />);
+    };
 
     return (
         <div>
@@ -68,7 +76,7 @@ const Header: React.FC<HeaderProps> = ({ isCompact }) => {
                 <div className={`flex text-[#23A6F0] text-[14px] font-bold ${headerIconsWidth}`}>
                     <div className="flex items-center mr-6"> <FaRegUser className="mr-2 text-[13px]" /> Login / Register</div>
                     <div className="flex items-center mr-8"><BsSearch className="text-[15px]" /></div>
-                    <div className="flex items-center mr-8 font-normal"><BsCart className="text-[15px] mr-1" /> <p>1</p></div>
+                    <div className="flex items-center mr-8 font-normal cursor-pointer" onClick={handleCartClick}><BsCart className="text-[15px] mr-1" /> <p>{product.totalQuantity}</p></div>
                     <div className="flex items-center font-normal">
                         <Image src={like} alt="like" width={18} height={18} className="mr-1" />
                         <p>1</p>

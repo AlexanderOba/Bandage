@@ -7,13 +7,22 @@ import HeroSection from "@/app/home/HeroSection";
 import NewsLetter from "@/app/home/NewsLetter";
 import ProductList from "@/app/home/ProductList";
 import ServiceList from "@/app/home/ServiceList";
+import { useState } from "react";
 
 
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+
+  const openProductModal = (component: any) => {
+    setIsOpen(true);
+    setModalContent(component);
+  };
+
   return (
     <main>
-        <Header isCompact={false} />
+        <Header isCompact={false} openProductModal={openProductModal}/>
         <HeroSection/>
         <ProductList showStyles={false}/>
         <ServiceList/>
