@@ -19,7 +19,6 @@ export const getProducts = createAsyncThunk(
       const response = await axiosInstance.get("products");
       return response?.data?.products;
     } catch (error: any) {
-      console.log(error?.response)
   }
 }
 );
@@ -30,7 +29,6 @@ export const getProductsDetailsById = createAsyncThunk(
   async (id: string, thunkAPI) => {
       try {
           const response = await axiosInstance.get(`products/${id}`);
-          console.log(response.data)
           return response.data;
       } catch (error: any) {
           const errorMessage = error.message;
@@ -53,7 +51,6 @@ const productSlice = createSlice({
       .addCase(getProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.product = action.payload;
-        console.log(action.payload)
       })
       .addCase(getProducts.rejected, (state, action) => {
         state.loading = false;
@@ -66,7 +63,6 @@ const productSlice = createSlice({
       .addCase(getProductsDetailsById.fulfilled, (state, action) => {
         state.loading = false;
         state.productDetails = action.payload;
-        console.log(action.payload)
       })
       .addCase(getProductsDetailsById.rejected, (state, action) => {
         state.loading = false;

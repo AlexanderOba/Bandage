@@ -35,9 +35,6 @@ const cartSlice = createSlice({
       state.changed = true;
       const newItem = action.payload;
 
-      console.log("from store", newItem);
-      console.log(newItem.thumbnail);
-
       const existingItem = state.itemsList.find(
         (item) => item.id === newItem.id
       );

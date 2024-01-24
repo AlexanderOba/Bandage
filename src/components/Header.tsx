@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({ isCompact, openProductModal }) => {
     const wishListItem = useSelector((state: any) => state.wishList);
 
 
-    const horizontalPadding = isCompact ? "lg:px-[11.6rem] md:px-[1.5rem]" : "px-[2.5rem]";
+    const horizontalPadding = isCompact ? "lg:px-[11.6rem] md:px-[1.5rem]" : "md:px-[2.5rem] px-[1.5rem]";
     const headerCTAWidth = isCompact ? "lg:w-[72%] md:w-[56%]" : "w-[59%]";
     const headerLogoWidth = isCompact ? "w-[31%]" : "w-[20%]";
     const headerIconsWidth = isCompact ? "lg:w-[32%] md:w-[40%]" : "lg:w-[24%] md:w-[35%]";
